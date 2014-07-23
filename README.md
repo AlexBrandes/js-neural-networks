@@ -2,7 +2,7 @@ JS Neural Networks
 #Simple Perceptron Network
 ==================
 
-This single layer Neural network is set up to learn how to recognize the number 4 in the provided data set, though you could train it to recognize any number/character/shape if you adjust the training data set. View the demo here [demo here](http://fouretch.com/projects/neural-networks).
+This single layer Neural network is set up to learn how to recognize the number 4 in the provided data set, though you could train it to recognize any number/character/shape if you adjust the training data set. View the [demo here](http://fouretch.com/projects/neural-networks).
 
 ###How it works
 
