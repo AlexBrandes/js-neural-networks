@@ -1,11 +1,12 @@
-js-neural-networks
+JS Neural Networks
+#Simple Perceptron Network
 ==================
 
-This single layer Neural network is set up to learn how to recognize the number 4 in the provided data set.
+This single layer Neural network is set up to learn how to recognize the number 4 in the provided data set, though you could train it to recognize any number/character/shape if you adjust the training data set. View the demo here [demo here](http://fouretch.com/projects/neural-networks).
 
 ###How it works
 
-After each generation (epoche) the worst performing four neurons are removed and the best performing 4 neurons are duplicated to take their place. The weights of each neuron (corresponding to each pixel on the image) are then mutated to create variation in the population. After several dozen generations, the population gets better and better at determining whether the provided image is the number 4 or not.
+An array of 64 neurons each have a set of weights that are applied to each pixel on the canvas.After each generation (epoche) the neurons are scored based on the number of patterns they were able to correctly guess. The worst performing four neurons are removed and the best performing 4 neurons are duplicated to take their place. The weights of each neuron (corresponding to each pixel on the image) are then mutated to create variation in the population. In this way, the system evolves towards more successful weight numbers. After several dozen generations, the population gets better and better at determining whether the provided image is the number 4 or not.
 
 ###Adjusting the speed
 

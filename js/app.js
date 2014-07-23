@@ -915,12 +915,12 @@ Trainer = function(inputs, display) {
 	this.stopped = true;
 
 	this.init = function() {
-		this.weights = this.getStartingWeights(this.population);
-		display.showSpeed(this.restPeriod);
+		self.weights = self.getStartingWeights(self.population);
+		display.showSpeed(self.restPeriod);
 	};
 
 	this.train = function() {
-		if (this.stopped) {
+		if (self.stopped) {
 			return;
 		}
 
@@ -932,7 +932,7 @@ Trainer = function(inputs, display) {
 		display.drawFeedForwardChar(self.getAverageWeight());
 
 		// get rid of bad performers and duplicate winners
-		this.ranks.length > 0 && self.thinTheHerd();
+		self.ranks.length > 0 && self.thinTheHerd();
 
 		// display high/low score in the view
 		display.showScoreRange(self.lowestScore, self.highestScore);
@@ -969,7 +969,7 @@ Trainer = function(inputs, display) {
 		// draw what we're training on
 		display.drawChar(instance.vals);
 
-		this.answers = [];
+		self.answers = [];
 		// create a new neuron for each weight set
 		for (var j=0; j < self.weights.length; j++) {
 			var neuron = new Neuron(instance, self.weights[j]);
@@ -977,7 +977,7 @@ Trainer = function(inputs, display) {
 
 			var isCorrect = neuron.isCorrect();
 
-			this.answers.push(neuron.answer);
+			self.answers.push(neuron.answer);
 
 			// display the score in the appropriate box
 			display.showScore(neuron.answer, isCorrect, j);
@@ -990,32 +990,32 @@ Trainer = function(inputs, display) {
 			self.ranks[j] += isCorrect ? 1 : -1; //1 + (Math.abs(neuron.answer)/1) : 0 - (Math.abs(neuron.answer)/1);
 		}
 
-		this.calculateAnswer();
+		self.calculateAnswer();
 	}
 
 	this.testInput = function(input) {
 		// draw what we're training on
 		display.drawChar(input.vals);
 
-		this.answers = [];
+		self.answers = [];
 
 		// create a new neuron for each weight set
 		for (var j=0; j < self.weights.length; j++) {
 			var neuron = new Neuron(input, self.weights[j]);
 			neuron.score();
 
-			this.answers.push(neuron.answer);
+			self.answers.push(neuron.answer);
 
 			// display the score in the appropriate box
 			display.showScore(neuron.answer, 1, j);
 		}
 
-		this.calculateAnswer();
+		self.calculateAnswer();
 	};
 
 	// pretty basic step function here... works ok
 	this.calculateAnswer = function() {
-		var answers = this.answers;
+		var answers = self.answers;
 
 		var total = 0;
 		for (var i=0; i < answers.length; i++) {
@@ -1049,7 +1049,7 @@ Trainer = function(inputs, display) {
 
 		// duplicate the best performers and overwrite the worst 
 		// (must use slice(0) to clone not reference the array)
-		for (var i=0; i < this.swapCount; i++) {
+		for (var i=0; i < self.swapCount; i++) {
 			self.weights[keyRanks[keyRanks.length-i-1][0]] = self.weights[keyRanks[i][0]].slice(0);
 		}
 
@@ -1098,7 +1098,7 @@ Trainer = function(inputs, display) {
 
 	// Get the mean weight set for feed forward mode
 	this.getAverageWeight = function() {
-		var weights = this.weights;
+		var weights = self.weights;
 		var avgWeightData = [];
 
 		for (var i=0; i < weights.length; i++) {
@@ -1125,7 +1125,7 @@ Trainer = function(inputs, display) {
 		return avgWeights;
 	};
 
-	this.init();
+	self.init();
 };
 
 Input = function(vals, answer) {
