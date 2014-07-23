@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Simple Pattern Recognition</title>
+	<meta charset="utf8">
+	<link rel="stylesheet" href="/css/vendor/bootstrap-3.2.0.css">
+	<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+	<div id="wrapper" class="container-fluid">
+		<div id="header">
+			<h1>Simple Pattern Recognition</h1>
+			<p class="lead">perceptron learning with the genetic algorithm</p>
+		</div>
+		<div id="console">
+			<div class="info">
+				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#header-modal">
+				  i
+				</button>
+				<div class="modal fade" id="header-modal" tabindex="-1" role="dialog" aria-labelledby="header-modal-label" aria-hidden="true">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">
+				        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				        </button>
+				        <h4 class="modal-title" id="header-modal-label">
+				        	Perceptron Machine Learning Using the Genetic Algorithm
+				        </h4>
+				      </div>
+				      <div class="modal-body">
+				        This single layer Neural network is set up to learn how to recognize the number 4 in the provided data set.
+
+				        <h5>How it works</h5>
+				        After each generation (epoche) the worst performing four neurons are removed and the best performing 4 neurons are duplicated to take their place. The weights of each neuron (corresponding to each pixel on the image) are then mutated to create variation in the population. After several dozen generations, the population gets better and better at determining whether the provided image is the number 4 or not. 
+
+				        <h5>Adjusting the speed</h5>
+				        Enter a number into the speed field and hit the "update speed" button. The value you enter is the number of milliseconds the system waits between testing inputs so zero is the fastest possible. Use 2000 - 3000 if you want to be able to read the weights in between each input.
+
+				        <h5>Feeding Forward</h5>
+				        The box in the upper right of the screen updates after each generation to show the feed forward view of the neuron weights. This is essentially a visual representation of what the system has learned from its training. Darker colors indicate positive weighting while lighter colors indicate negative weighting. 
+
+				        <h5>User Provided Inputs</h5>
+				        Once the system has run through some number of generations (I suggest at least 100, 500+ will be most accurate), you can stop the learning and test your own value. Use the box in the lower right to draw your own input and see how the system responds. Make sure to hit the "stop" button first, then click the "Test Input" button to run the test. You can continue learning at the current generation after a test if you want. 
+
+				        <h5>What's actually being tested?</h5>
+				        This is a fairly primitive system that is not actually recognizing what the character looks like. It's creating a probability cloud to determine the probability that the combination of pixel points entered match the learned set of probabilities found in the learning data set. On its own this is not especially accurate and fails often, especially when the frame of the character is off center (try drawing your test in the bottom left corner) or try drawing a shape that looks like the feed forward image. This system could be somewhat accurate if given enough user provided data and would then be showing where a user is most likely to draw the trained character. 
+
+				        <h5>How was it built?</h5>
+				        The source code is written in 22 kb of pure javascript including training data (jQuery used for display). Check out the code base on <a href="http://githib.com/AlexBrandes/jsNeuralNetworks">github</a>.
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+			<div id="generation-stats">
+				<h4>Generation <span id="generation">1</span></h4>
+				<h4>High Score: <span id="highscore"></span></h4>
+				<h4>Low Score: <span id="lowscore"></span></h4>
+			</div>
+			<div id="button-wrap">
+				<button type="button" class="btn btn-warning" id="update-speed">Update Speed</button>
+				<input type="text" id="speed" value="">
+				<button type="button" class="btn btn-danger" id="stop">Stop</button>
+				<button type="button" class="btn btn-success" id="start">Start</button>
+				<button type="button" class="btn btn-primary" id="user-input-test">Test Input</button>
+			</div>
+			<div id="canvas-wrap">
+				<div id="canvas">
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<div class="info">
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#canvas-modal">
+						  i
+						</button>
+						<div class="modal fade" id="canvas-modal" tabindex="-1" role="dialog" aria-labelledby="canvas-modal-label" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">
+						        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						        </button>
+						        <h4 class="modal-title" id="canvas-modal-label">Training Image</h4>
+						      </div>
+						      <div class="modal-body">
+						        This view displays the image currently being trained on. 
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div id="feed-forward-canvas">
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<div class="info">
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#feed-forward-modal">
+						  i
+						</button>
+						<div class="modal fade" id="feed-forward-modal" tabindex="-1" role="dialog" aria-labelledby="feed-forward-modal-label" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">
+						        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						        </button>
+						        <h4 class="modal-title" id="feed-forward-modal-label">Feed Forward View</h4>
+						      </div>
+						      <div class="modal-body">
+						        This view shows the feed forward image created by the weights in the Neural Network. It's essentially what the network views as an average instance of the character being tested for. 
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div id="user-input-canvas">
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<ul class="pixel-row">
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+						<li class="pixel"></li>
+					</ul>
+					<div class="info">
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user-test-modal">
+						  i
+						</button>
+						<div class="modal fade" id="user-test-modal" tabindex="-1" role="dialog" aria-labelledby="user-test-modal-label" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">
+						        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						        </button>
+						        <h4 class="modal-title" id="user-test-modal-label">User Test Image</h4>
+						      </div>
+						      <div class="modal-body">
+						        Use this space to enter in your own image to test against the network at its current stage of training. Click on the image to draw one pixel at a time. Hit the "test input" button when you're ready and check the output below. 
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div id="score-match-wrap">
+				<div id="match-box">
+
+				</div>
+				<div id="score-box-wrap">
+					<ul id="score-box">
+						
+					</ul>
+					<div class="info">
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#score-box-modal">
+						  i
+						</button>
+						<div class="modal fade" id="score-box-modal" tabindex="-1" role="dialog" aria-labelledby="score-box-modal-label" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">
+						        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						        </button>
+						        <h4 class="modal-title" id="score-box-modal-label">Training Image</h4>
+						      </div>
+						      <div class="modal-body">
+						        This displays the result of each neuron in the network for the given image. Green indicates a correct result while red indicates an incorrect result. 
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/vendor/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="/js/vendor/bootstrap-3.2.0.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+</body>
+</html>
